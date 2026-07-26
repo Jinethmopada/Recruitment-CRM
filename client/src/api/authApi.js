@@ -19,3 +19,8 @@ export const postJob =  async(jobData) => {
     const response = await api.post('/new-job',jobData);
     return response.data;
 }
+
+export const deleteJob = async(jobId) => {
+    const response = await api.delete(`/jobs/${jobId}`);
+    return response.data;
+}

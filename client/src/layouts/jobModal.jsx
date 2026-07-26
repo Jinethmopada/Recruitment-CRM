@@ -128,15 +128,12 @@ const JobModal = ({ onClose }) => {
 
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">Job Type</label>
-               <input
-                type="text"
-                required
-                name="jobType"
-                value={jobData.jobType}
-                onChange={onHandleChange}
-                className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-                placeholder="Full Time"
-              />
+               <select required name="jobType" value={jobData.jobType} onChange={onHandleChange} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">
+                <option>Select Type</option>
+                <option>Full Time</option>
+                <option>Part Time</option>
+                <option>Contract</option>
+              </select>
             </div>
 
             <div>

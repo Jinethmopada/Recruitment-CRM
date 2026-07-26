@@ -7,6 +7,8 @@ export const JobProvider = ({ children }) => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [selectedJobId, setSelectedJobId] = useState(null);
+
   const defaultFilters = {
     department: "All Departments",
     location: "All Locations",
@@ -31,13 +33,16 @@ export const JobProvider = ({ children }) => {
     setFilters({ ...defaultFilters });
   };
 
+  const selectedJob = useMemo(() => {
+    return jobs.find((job) => selectedJobId === job.jobId)
+  },[jobs,selectedJobId])
+
   const filterJobs = () => {
     const jobsList = jobs.filter((job) => {
       const matchesSearch =
         search.trim() === "" ||
         job.title.toLowerCase().includes(search.toLowerCase()) ||
-        String(job.jobId).toLowerCase().includes(search.toLowerCase()) ||
-        job.description?.toLowerCase().includes(search.toLowerCase());
+        String(job.jobId).toLowerCase().includes(search.toLowerCase());
 
       const matchesDepartment =
         filters.department === "All Departments" ||
@@ -94,8 +99,11 @@ export const JobProvider = ({ children }) => {
       onHandleChange,
       onFilterChange,
       clearFilters,
+      selectedJob,
+      selectedJobId,
+      setSelectedJobId,
     }),
-    [jobs, loading, search, filters, filteredList]
+    [jobs, loading, search, filters, filteredList, selectedJob, selectedJobId]
   );
 
   return <JobContext.Provider value={value}>{children}</JobContext.Provider>;
