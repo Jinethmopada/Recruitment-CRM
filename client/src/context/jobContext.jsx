@@ -88,6 +88,15 @@ export const JobProvider = ({ children }) => {
     filterJobs();
   }, [jobs, search, filters]);
 
+  const loadJobs = async () => {
+      try {
+        const data = await fetchAllJobs();
+        setJobs(data || []);
+      } catch (error) {
+        console.log("Failed to Fetch Jobs", error);
+  }
+}
+
   const value = useMemo(
     () => ({
       jobs,
@@ -102,6 +111,7 @@ export const JobProvider = ({ children }) => {
       selectedJob,
       selectedJobId,
       setSelectedJobId,
+      loadJobs
     }),
     [jobs, loading, search, filters, filteredList, selectedJob, selectedJobId]
   );

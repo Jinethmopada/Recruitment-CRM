@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { postJob } from "../api/authApi";
+import { useJobs } from "../context/jobContext";
 
 const JobModal = ({ onClose }) => {
+  const {loadJobs} = useJobs();
     const [jobData,setJobData] = useState({
         jobId:"",
         title:"",
@@ -39,6 +41,7 @@ const JobModal = ({ onClose }) => {
             if(response.success){
                 console.log(response);
                 alert(response.message);
+                loadJobs();
                 onClose();
             }else{
                 alert(response.message);

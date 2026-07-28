@@ -25,14 +25,7 @@ const JobsList = () => {
       <div className="rounded-4xl border border-slate-200 bg-white p-6 shadow-sm">
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-lg font-semibold">Jobs</h2>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-slate-500">Sort by:</span>
-            <select className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2 text-sm text-slate-700 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100">
-              <option>Newest First</option>
-              <option>Oldest First</option>
-            </select>
+            <h2 className="text-2xl font-semibold px-2">Posted Jobs</h2>
           </div>
         </div>
 

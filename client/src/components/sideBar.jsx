@@ -80,14 +80,15 @@ const SideBar = () => {
           if (window.innerWidth >= 768) setIsOpen(false);
         }}
         className={`
-          fixed md:relative
+          fixed
           top-0 left-0
-          min-h-screen
+          h-screen
           bg-slate-900
           text-white
           transition-all
           duration-300
           z-40
+          overflow-y-auto
 
           ${
             isOpen

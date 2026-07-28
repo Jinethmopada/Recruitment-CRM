@@ -1,11 +1,72 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useJobs } from '../context/jobContext';
-import { deleteJob as deleteJobApi } from '../api/authApi';
+import { deleteJob as deleteJobApi, updateJob } from '../api/authApi';
 
 const JobDetailsModal = () => {
-  const { selectedJob, setSelectedJobId } = useJobs();
+  const { selectedJob, setSelectedJobId,loadJobs } = useJobs();
+  const [updateClick, setUpdateClick] = useState(false);
+  const [updatedJobsData, setUpdatedJobsData] = useState({
+    jobId:"",
+    title:"",
+    description: "",
+    jobStatus:"",
+    jobType:"",
+    department:"",
+    experience:"",
+    location:""
+  })
 
-  if (!selectedJob) return null;
+  useEffect(() => {
+    if(selectedJob){
+      setUpdatedJobsData(selectedJob);
+    }
+  },[selectedJob]);
+
+   if (!selectedJob) return null;
+
+  const handleUpdate = () => {
+    setUpdatedJobsData(selectedJob);
+    setUpdateClick(true);
+  }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setUpdatedJobsData(prev => ({
+        ...prev,
+        [name]: value
+    }));
+};
+  const saveJob = async() => {
+          try {
+              const payload = {
+                  jobId: updatedJobsData.jobId,
+                  title: updatedJobsData.title,
+                  description: updatedJobsData.description,
+                  jobType: updatedJobsData.jobType,
+                  department: updatedJobsData.department,
+                  experience: updatedJobsData.experience,
+                  location: updatedJobsData.location,
+                  jobStatus: updatedJobsData.jobStatus,
+                  postedDate: new Date
+              };
+  
+              const response = await updateJob(payload);
+              if(response.success){
+                  console.log(response);
+                  alert(response.message);
+                  await loadJobs();
+                  setUpdateClick(false);
+                  setSelectedJobId(null);
+              }else{
+                  alert(response.message);
+              }
+              } catch (error) {
+                  alert(error.response?.data?.message || "Job Posting Failed");
+                  console.log(error) 
+          }    
+      }
+  
 
   const handleDeleteJob = async () => {
     try {
@@ -13,6 +74,7 @@ const JobDetailsModal = () => {
       await deleteJobApi(selectedJob.jobId);
       setSelectedJobId(null);
       alert(`Job with Job ID: ${selectedJob.jobId} deleted successfully`);
+      await loadJobs();
     } catch (error) {
       alert(error.response?.data?.message || 'Failed to delete job');
     }
@@ -53,33 +115,78 @@ const JobDetailsModal = () => {
           <div className="mb-4 flex items-center justify-between rounded-2xl bg-slate-50 px-4 py-3">
             <div>
               <p className="text-sm text-slate-500">Job Title</p>
-              <p className="text-lg font-semibold text-slate-800">{selectedJob.title || '-'}</p>
+              {updateClick ? <input type='text' name='title' value={updatedJobsData.title} onChange={handleChange}/> : <p className="text-lg font-semibold text-slate-800">{selectedJob.title || '-'}</p>}
             </div>
-            <span className="rounded-full bg-indigo-100 px-3 py-1 text-sm font-semibold text-indigo-700">
+            {updateClick ?  <select required name="jobStatus" value={updatedJobsData.jobStatus} onChange={handleChange} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">
+                <option>Select Status</option>
+                <option value="OPEN">OPEN</option>
+                <option value="CLOSED">CLOSED</option>
+                <option value="DRAFT">DRAFT</option>
+                <option value="FILLED">FILLED</option>
+                <option value="FROZEN">FROZEN</option>
+                <option value="HOLD">HOLD</option>
+              </select> : <span className="rounded-full bg-indigo-100 px-3 py-1 text-sm font-semibold text-indigo-700">
               {selectedJob.jobStatus || 'OPEN'}
-            </span>
+            </span>}
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
             <div>
               <p className="text-sm font-medium text-slate-600">Job ID</p>
-              <p className="text-sm text-slate-800">{selectedJob.jobId || '-'}</p>
+              {updateClick ? <input
+                type="text"
+                name="jobId"
+                onChange={handleChange}
+                value={updatedJobsData.jobId}
+                required
+                className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                placeholder="e.g. JOB-102"
+              /> : <p className="text-sm text-slate-800">{selectedJob.jobId || '-'}</p>}
             </div>
             <div>
               <p className="text-sm font-medium text-slate-600">Department</p>
-              <p className="text-sm text-slate-800">{selectedJob.department || '-'}</p>
+              {updateClick ? <input
+                type="text"
+                required
+                name="department"
+                value={updatedJobsData.department}
+                onChange={handleChange}
+                className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                placeholder="Engineering"
+              />:  <p className="text-sm text-slate-800">{selectedJob.department || '-'}</p>}
             </div>
             <div>
               <p className="text-sm font-medium text-slate-600">Location</p>
-              <p className="text-sm text-slate-800">{selectedJob.location || '-'}</p>
+              {updateClick ? <input
+                type="text"
+                required
+                name="location"
+                value={updatedJobsData.location}
+                onChange={handleChange}
+                className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                placeholder="Engineering"
+              />: <p className="text-sm text-slate-800">{selectedJob.location || '-'}</p>}
             </div>
             <div>
               <p className="text-sm font-medium text-slate-600">Job Type</p>
-              <p className="text-sm text-slate-800">{selectedJob.jobType || '-'}</p>
+              {updateClick ? <select required name="jobType" value={updatedJobsData.jobType} onChange={handleChange} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">
+                <option>Select Type</option>
+                <option value="Full Time">Full Time</option>
+                <option value="Part Time">Part Time</option>
+                <option value="Contract">Contract</option>
+              </select>: <p className="text-sm text-slate-800">{selectedJob.jobType || '-'}</p>}
             </div>
             <div>
               <p className="text-sm font-medium text-slate-600">Experience</p>
-              <p className="text-sm text-slate-800">{selectedJob.experience || '-'}</p>
+              {updateClick ?<input
+                type="text"
+                required
+                name="experience"
+                value={updatedJobsData.experience}
+                onChange={handleChange}
+                className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                placeholder="Engineering"
+              /> : <p className="text-sm text-slate-800">{selectedJob.experience || '-'}</p>}
             </div>
             <div>
               <p className="text-sm font-medium text-slate-600">Posted Date</p>
@@ -89,25 +196,39 @@ const JobDetailsModal = () => {
 
           <div className="mt-5">
             <p className="text-sm font-medium text-slate-600">Description</p>
-            <p className="mt-1 text-sm leading-6 text-slate-700">
+            {updateClick ? <textarea
+            name="description"
+            value={updatedJobsData.description}
+            onChange={handleChange}
+              rows="4"
+              className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+              placeholder="Describe the role, responsibilities, and requirements..."
+            /> : <p className="mt-1 text-sm leading-6 text-slate-700">
               {selectedJob.description || 'No description provided.'}
-            </p>
+            </p>}
           </div>
 
           <div className="mt-6 flex justify-between">
-          <button
+          {!updateClick ? <button
+              type="button"
+              onClick={handleUpdate}
+              className="rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-indigo-700"
+            >
+              Update
+            </button> : ''}
+            {updateClick ? <button
+              type="submit"
+              onClick={saveJob}
+              className="rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-indigo-700"
+            >
+              Save
+            </button> : ''}
+            <button
               type="button"
               onClick={handleDeleteJob}
               className="rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-indigo-700"
             >
               Delete
-            </button>
-            <button
-              type="button"
-              onClick={() => setSelectedJobId(null)}
-              className="rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-indigo-700"
-            >
-              Close
             </button>
           </div>
         </div>
