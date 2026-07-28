@@ -24,7 +24,7 @@ export const postJob = async(req,res) => {
 
 export const getJobs = async(req,res) => {
     try {
-        const jobs = await Jobs.find();
+        const jobs = await Jobs.find().sort({postedDate:-1});
         res.status(200).json({
             success:true,
             jobs,
