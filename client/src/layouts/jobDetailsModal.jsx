@@ -133,15 +133,7 @@ const JobDetailsModal = () => {
           <div className="grid gap-4 md:grid-cols-2">
             <div>
               <p className="text-sm font-medium text-slate-600">Job ID</p>
-              {updateClick ? <input
-                type="text"
-                name="jobId"
-                onChange={handleChange}
-                value={updatedJobsData.jobId}
-                required
-                className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-                placeholder="e.g. JOB-102"
-              /> : <p className="text-sm text-slate-800">{selectedJob.jobId || '-'}</p>}
+            <p className="text-sm text-slate-800">{selectedJob.jobId || '-'}</p>
             </div>
             <div>
               <p className="text-sm font-medium text-slate-600">Department</p>
