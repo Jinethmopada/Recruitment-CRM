@@ -14,7 +14,6 @@ const NavBar = () => {
           <FaRegUserCircle size={30} className="text-gray-600" />
           <div>
             <h4 className="font-medium text-sm">John Doe</h4>
-            <p className="text-xs text-gray-500">Admin</p>
           </div>
         </div>
       </div>

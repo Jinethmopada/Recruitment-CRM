@@ -209,6 +209,13 @@ const JobDetailsModal = () => {
           </div>
 
           <div className="mt-6 flex justify-between">
+           <button
+              type="button"
+              onClick={handleDeleteJob}
+              className="rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-indigo-700"
+            >
+              Delete
+            </button>
           {!updateClick ? <button
               type="button"
               onClick={handleUpdate}
@@ -223,13 +230,6 @@ const JobDetailsModal = () => {
             >
               Save
             </button> : ''}
-            <button
-              type="button"
-              onClick={handleDeleteJob}
-              className="rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-indigo-700"
-            >
-              Delete
-            </button>
           </div>
         </div>
       </div>

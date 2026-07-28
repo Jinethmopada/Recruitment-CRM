@@ -18,7 +18,9 @@ const JobsList = () => {
     FROZEN: 'bg-orange-100 text-orange-700',
     HOLD: 'bg-orange-100 text-rose-700',
     OPEN: 'bg-emerald-100 text-emerald-700',
+    DRAFT: 'bg-yellow-100 text-black-100'
   };
+
 
   return (
     <>
@@ -77,7 +79,7 @@ const JobsList = () => {
                       <td className="px-4 py-5 text-slate-700">{job.department}</td>
                       <td className="px-4 py-5 text-slate-700">{job.location}</td>
                       <td className="px-4 py-5">
-                        <span className="inline-flex rounded-full bg-indigo-100 px-3 py-1 text-xs font-semibold text-indigo-700">
+                        <span className="inline-flex rounded-full bg-indigo-100 px-3 py-1 text-xs font-semibold text-indigo-900">
                           {job.jobType}
                         </span>
                       </td>
