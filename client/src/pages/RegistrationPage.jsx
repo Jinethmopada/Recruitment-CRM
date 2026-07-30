@@ -3,6 +3,7 @@ import { useState } from "react"
 import RightSection from "../components/rightSection";
 import { registerUser } from "../api/authApi";
 import {useNavigate} from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Registration = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const Registration = () => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     if(formData.password !== formData.confirmPassword){
-      alert("Password didn't Match");
+      toast.error("Password didn't Match");
       return;
     }
     try {
@@ -33,11 +34,11 @@ const Registration = () => {
         password: formData.password,
       });
       console.log(response);
-      alert("Registration Completed Successfully");
+      toast.success("Registration Completed Successfully");
       navigate('/login');
     } catch (error) {
       console.log(error);
-      alert(error.response?.data?.message || "Registration Failed");
+      toast.error(error.response?.data?.message || "Registration Failed");
     }
   }
 

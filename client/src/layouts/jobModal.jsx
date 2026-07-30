@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { postJob } from "../api/authApi";
 import { useJobs } from "../context/jobContext";
+import toast from "react-hot-toast";
 
 const JobModal = ({ onClose }) => {
   const {loadJobs} = useJobs();
@@ -23,7 +24,7 @@ const JobModal = ({ onClose }) => {
         e.preventDefault();
         if(!jobData.jobId || !jobData.title || !jobData.description || !jobData.department || !jobData.jobStatus
             || !jobData.location || !jobData.experience){
-                alert("All Mandatory fields are required");
+                toast.error("All Mandatory fields are required");
                 return;
             }
         try {
@@ -40,14 +41,14 @@ const JobModal = ({ onClose }) => {
             const response = await postJob(payload);
             if(response.success){
                 console.log(response);
-                alert(response.message);
+                toast.success(response.message);
                 loadJobs();
                 onClose();
             }else{
-                alert(response.message);
+                toast.error(response.message);
             }
             } catch (error) {
-                alert(error.response?.data?.message || "Job Posting Failed");
+                toast.error(error.response?.data?.message || "Job Posting Failed");
                 console.log(error) 
         }    
     }

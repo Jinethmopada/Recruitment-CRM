@@ -3,6 +3,7 @@ import LeftSection from '../components/leftSection'
 import LoginRightSection from '../components/loginRightSection'
 import { loginUser } from '../api/authApi'
 import { useNavigate } from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -21,11 +22,11 @@ const LoginPage = () => {
   const handleSubmit = async(e) => {
     e.preventDefault()
       if (formData.email === "") {
-    alert("Email is required");
+    toast.error("Email is required");
     return;
     }
     if (formData.password === "") {
-    alert("Password is required");
+    toast.error("Password is required");
     return;
     }
      try {
@@ -35,17 +36,17 @@ const LoginPage = () => {
       console.log(response);
     // Save token
     localStorage.setItem("token", response.token);
-    alert(response.message);
+    toast.success(response.message);
 
     navigate("/dashboard");
     }else{
-      alert(response.message);
+      toast.error(response.message);
     }
 
   } catch (error) {
     console.error(error);
 
-    alert(error.response?.data?.message || "Login Failed");
+    toast.error(error.response?.data?.message || "Login Failed");
   }
   }
 

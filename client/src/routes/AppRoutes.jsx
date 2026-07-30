@@ -4,6 +4,7 @@ import LoginPage from "../pages/loginPage";
 import Dashboard from "../pages/Dashboard/dashboard";
 import DashboardLayout from "../layouts/dashboardLayout";
 import Jobs from "../pages/Jobs/jobs";
+import ProtectedRoute from "./ProtectRoute";
 
 const AppRoutes = () => {
   return (
@@ -12,9 +13,8 @@ const AppRoutes = () => {
       <Route path="/login" element={<LoginPage />} />
 
       <Route element={<DashboardLayout />}>
-      <Route path="/" element={<Navigate to="/dashboard" replace />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/jobs" element={<Jobs />} />
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/jobs" element={<ProtectedRoute><Jobs /></ProtectedRoute>} />
       </Route>
     </Routes>
   );

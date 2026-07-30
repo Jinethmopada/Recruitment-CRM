@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useJobs } from '../context/jobContext';
 import { deleteJob as deleteJobApi, updateJob } from '../api/authApi';
+import toast from 'react-hot-toast';
 
 const JobDetailsModal = () => {
   const { selectedJob, setSelectedJobId,loadJobs } = useJobs();
@@ -54,15 +55,15 @@ const JobDetailsModal = () => {
               const response = await updateJob(payload);
               if(response.success){
                   console.log(response);
-                  alert(response.message);
+                  toast.success(response.message);
                   await loadJobs();
                   setUpdateClick(false);
                   setSelectedJobId(null);
               }else{
-                  alert(response.message);
+                  toast.error(response.message);
               }
               } catch (error) {
-                  alert(error.response?.data?.message || "Job Posting Failed");
+                  toast.error(error.response?.data?.message || "Job Posting Failed");
                   console.log(error) 
           }    
       }
@@ -73,10 +74,10 @@ const JobDetailsModal = () => {
         alert("Are you sure you want to delete");
       await deleteJobApi(selectedJob.jobId);
       setSelectedJobId(null);
-      alert(`Job with Job ID: ${selectedJob.jobId} deleted successfully`);
+      toast.success(`Job with Job ID: ${selectedJob.jobId} deleted successfully`);
       await loadJobs();
     } catch (error) {
-      alert(error.response?.data?.message || 'Failed to delete job');
+      toast.error(error.response?.data?.message || 'Failed to delete job');
     }
   };
 
