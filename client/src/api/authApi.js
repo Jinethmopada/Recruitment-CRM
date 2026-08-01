@@ -29,3 +29,18 @@ export const updateJob = async(data) => {
     const response = await api.put(`/jobs/${data.jobId}`,data);
     return response.data;
 }
+
+export const fetchCandidates = async() => {
+    const response = await api.get('/get-candidates');
+    return response.data.candidates;
+}
+
+export const postCandidate = async(data) => {
+    const response = await api.post('/candidate',data);
+    return response.data;
+}
+
+export const updateCandidateStatus = async(data) => {
+    const response = await api.put('/candidate-status', data);
+    return response.data;
+}

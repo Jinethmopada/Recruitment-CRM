@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useJobs } from '../context/jobContext';
 import JobDetailsModal from '../layouts/jobDetailsModal';
+import ApplyModal from '../layouts/applyModal';
 
 const JobsList = () => {
-  const { loading, filteredList, selectedJob, setSelectedJobId } = useJobs();
+  const { loading, filteredList, selectedJob, setSelectedJobId, selectedTitle, setSelectedTitle } = useJobs();
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [applyJob, setApplyJob] = useState(null);
   const itemsPerPage = 5;
   const totalPages = Math.ceil(filteredList.length / itemsPerPage);
   const lastIndex = currentPage * itemsPerPage;
@@ -42,6 +44,7 @@ const JobsList = () => {
                 <th className="px-4 py-3">Experience</th>
                 <th className="px-4 py-3">Posted Date</th>
                 <th className="px-4 py-3">Status</th>
+                <th className="px-4 py-3">Application</th>
               </tr>
             </thead>
             <tbody>
@@ -92,6 +95,20 @@ const JobsList = () => {
                           {job.jobStatus}
                         </span>
                       </td>
+                      <td className="px-4 py-5">
+                        {job.jobStatus === 'OPEN' ? (
+                          <button
+                          onClick={() => {
+                            setSelectedJobId(null);
+                            setSelectedTitle(job.title);
+                            setApplyJob(job);
+                          }}
+                          className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-indigo-700"
+                        >
+                          Apply
+                        </button>
+                        ): "-"}
+                      </td>
                     </tr>
                   );
                 })
@@ -138,6 +155,14 @@ const JobsList = () => {
       </div>
 
       {selectedJob && <JobDetailsModal />}
+      {applyJob && (
+        <ApplyModal
+          onClose={() => {
+            setApplyJob(null);
+            setSelectedTitle(null);
+          }}
+        />
+      )}
     </>
   );
 };

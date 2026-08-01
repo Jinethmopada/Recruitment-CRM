@@ -8,6 +8,7 @@ export const JobProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [selectedJobId, setSelectedJobId] = useState(null);
+  const [selectedTitle, setSelectedTitle] = useState(null);
 
   const defaultFilters = {
     department: "All Departments",
@@ -34,8 +35,16 @@ export const JobProvider = ({ children }) => {
   };
 
   const selectedJob = useMemo(() => {
-    return jobs.find((job) => selectedJobId === job.jobId)
-  },[jobs,selectedJobId])
+    if (selectedJobId !== null) {
+      return jobs.find((job) => selectedJobId === job.jobId) || null;
+    }
+
+    if (selectedTitle) {
+      return jobs.find((job) => job.title === selectedTitle) || null;
+    }
+
+    return null;
+  }, [jobs, selectedJobId, selectedTitle]);
 
   const filterJobs = () => {
     const jobsList = jobs.filter((job) => {
@@ -70,32 +79,24 @@ export const JobProvider = ({ children }) => {
     setFilteredList(jobsList);
   };
 
+  const loadJobs = async () => {
+    try {
+      const data = await fetchAllJobs();
+      setJobs(data || []);
+    } catch (error) {
+      console.log("Failed to Fetch Jobs", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const loadJobs = async () => {
-      try {
-        const data = await fetchAllJobs();
-        setJobs(data || []);
-      } catch (error) {
-        console.log("Failed to Fetch Jobs", error);
-      } finally {
-        setLoading(false);
-      }
-    };
     loadJobs();
   }, []);
 
   useEffect(() => {
     filterJobs();
   }, [jobs, search, filters]);
-
-  const loadJobs = async () => {
-      try {
-        const data = await fetchAllJobs();
-        setJobs(data || []);
-      } catch (error) {
-        console.log("Failed to Fetch Jobs", error);
-  }
-}
 
   const value = useMemo(
     () => ({
@@ -111,9 +112,11 @@ export const JobProvider = ({ children }) => {
       selectedJob,
       selectedJobId,
       setSelectedJobId,
-      loadJobs
+      loadJobs,
+      selectedTitle,
+      setSelectedTitle
     }),
-    [jobs, loading, search, filters, filteredList, selectedJob, selectedJobId]
+    [jobs, loading, search, filters, filteredList, selectedJob, selectedJobId, selectedTitle, setSelectedTitle]
   );
 
   return <JobContext.Provider value={value}>{children}</JobContext.Provider>;

@@ -28,6 +28,7 @@ const menuItems = [
   {
     title: "Candidates",
     icon: RxPeople,
+    path:'/candidates'
   },
   {
     title: "Applications",
