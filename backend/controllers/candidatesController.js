@@ -3,7 +3,7 @@ import Candidates from '../models/Candidates.js';
 export const postCandidate = async(req,res) => {
     try {
         const {candidateId,firstName,lastName,email,phoneNumber,city,state,country,companyName,jobTitle
-            ,totalExperience,createdDate,jobDescription,schoolName,degree,fieldOfStudy,Gender,Citizenship,resumePath
+            ,totalExperience,createdDate,jobDescription,jobId,schoolName,degree,fieldOfStudy,Gender,Citizenship,resumePath
         } = req.body
         const hiringStatus = req.body.hiringStatus || "Applied"
         if(!firstName || !lastName || !email || !phoneNumber || !city || !state 
@@ -12,7 +12,7 @@ export const postCandidate = async(req,res) => {
             }
          const candidates = await Candidates.create({
            candidateId,firstName,lastName,email,phoneNumber,city,state,country,companyName,jobTitle,
-            totalExperience,createdDate,jobDescription,schoolName,degree,fieldOfStudy,Gender,Citizenship,resumePath,hiringStatus
+            totalExperience,jobId,createdDate,jobDescription,schoolName,degree,fieldOfStudy,Gender,Citizenship,resumePath,hiringStatus
          });
          res.status(200).json({
             success:true,

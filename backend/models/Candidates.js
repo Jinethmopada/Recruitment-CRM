@@ -16,7 +16,8 @@ const CandidatesSchema = new mongoose.Schema({
     },
     email:{
         type: String,
-        required: true
+        required: true,
+        unique:true
     },
     phoneNumber:{
         type: Number,
@@ -48,6 +49,10 @@ const CandidatesSchema = new mongoose.Schema({
         required: false
     },
     jobTitle:{
+        type: String,
+        required: false
+    },
+    jobId:{
         type: String,
         required: false
     },
