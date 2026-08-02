@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 const ApplyModal = ({ onClose }) => {
   const { loadCandidates } = useCandidates();
-  const { selectedJob, selectedTitle } = useJobs();
+  const { selectedJob, selectedTitle,selectedJobId } = useJobs();
 
   const [candidateData, setCandidateData] = useState({
     firstName: "",
@@ -20,6 +20,11 @@ const ApplyModal = ({ onClose }) => {
     Citizenship: "",
     resumePath: "",
     totalExperience: "",
+    schoolName: "",
+    degree:"",
+    fieldOfStudy:"",
+    companyName:"",
+    jobDescription:""
   });
 
   const onHandleChange = (e) => {
@@ -42,6 +47,7 @@ const ApplyModal = ({ onClose }) => {
       candidateData.country,
       candidateData.Gender,
       candidateData.Citizenship,
+      candidateData.jobDescription
     ];
 
     if (requiredFields.some((field) => !String(field).trim())) {
@@ -69,6 +75,12 @@ const ApplyModal = ({ onClose }) => {
         jobTitle: selectedJob?.title || selectedTitle || "",
         totalExperience: candidateData.totalExperience || "",
         resumePath: candidateData.resumePath || "",
+        jobId: selectedJob?.jobId || selectedJobId || null,
+        schoolName: candidateData.schoolName || "",
+        degree: candidateData.degree || "",
+        fieldOfStudy: candidateData.fieldOfStudy || "",
+        companyName: candidateData.companyName || "",
+        jobDescription: candidateData.jobDescription || "",
       };
 
       const response = await postCandidate(payload);
@@ -99,7 +111,7 @@ const ApplyModal = ({ onClose }) => {
       >
         <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4">
           <div>
-            <h2 className="text-xl font-semibold text-slate-800">{`Applying to: ${selectedJob?.title || selectedTitle || "Selected role"}`}</h2>
+            <h2 className="text-xl font-semibold text-slate-800">{`You're Applying to: ${selectedJob?.title || selectedTitle || "Selected role"}(${selectedJob?.jobId || selectedJobId || "Selected job"})`}</h2>
           </div>
           <button
             type="button"
@@ -228,10 +240,22 @@ const ApplyModal = ({ onClose }) => {
             </div>
 
             <div>
+              <label className="mb-1.5 block text-sm font-medium text-slate-700">Role Description</label>
+              <input
+                type="text"
+                name="jobDescription"
+                onChange={onHandleChange}
+                value={candidateData.jobDescription}
+                className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                placeholder="Role Description"
+              />
+            </div>
+
+            <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">School Name</label>
               <input
                 type="text"
-                name="school"
+                name="schoolName"
                 onChange={onHandleChange}
                 value={candidateData.schoolName}
                 className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"

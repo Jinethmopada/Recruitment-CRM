@@ -1,9 +1,10 @@
 import { useCandidates } from '../context/candidateContext.jsx';
 import { useState } from 'react';
 import { updateCandidateStatus } from '../api/authApi';
+import CandidateModal from '../layouts/candidateModal.jsx';
 
 const CandidatesList = () => {
-  const { loading, filteredList, loadCandidates } = useCandidates();
+  const { loading, filteredList, loadCandidates,selectedCandidateId, setSelectedCandidateId } = useCandidates();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
   const totalPages = Math.ceil(filteredList.length / itemsPerPage);
@@ -69,6 +70,9 @@ const CandidatesList = () => {
               ) : (
                 currentCandidates.map((candidate) => {
                   const fullName = `${candidate.firstName} ${candidate.lastName}`;
+                  const firstCharacter = candidate.firstName ? candidate.firstName.charAt(0).toUpperCase() : '';
+                  const lastCharacter = candidate.lastName ? candidate.lastName.charAt(0).toUpperCase() : '';
+                  const char = `${firstCharacter}${lastCharacter}`;
                   const location = `${candidate.city}, ${candidate.state}, ${candidate.country}`;
                   const createdDate = candidate.createdDate
                     ? new Date(candidate.createdDate).toLocaleDateString('en-US', {
@@ -84,7 +88,17 @@ const CandidatesList = () => {
                       className="cursor-pointer rounded-3xl border border-slate-200 bg-slate-50 hover:bg-slate-100"
                     >
                       <td className="px-4 py-5">
-                        <div className="font-medium text-slate-900">{fullName}</div>
+                        <div className="flex items-center gap-3">
+                          <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-indigo-100 bg-indigo-50 text-sm font-semibold text-indigo-700 shadow-sm">
+                            {char}
+                          </div>
+                          <div
+                            onClick={() => setSelectedCandidateId(candidate.candidateId)}
+                            className="cursor-pointer font-semibold text-slate-900 transition hover:text-indigo-700"
+                          >
+                            {fullName}
+                          </div>
+                        </div>
                       </td>
                       <td className="px-4 py-5 text-slate-700">{candidate.email || '-'}</td>
                       <td className="px-4 py-5 text-slate-700">{candidate.jobTitle || '-'}</td>
@@ -150,6 +164,7 @@ const CandidatesList = () => {
 
           </div>
       </div>
+      {selectedCandidateId && <CandidateModal/>}
     </>
   );
 };

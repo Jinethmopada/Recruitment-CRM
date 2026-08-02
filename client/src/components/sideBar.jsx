@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { TfiDashboard } from "react-icons/tfi";
 import { PiSuitcaseSimpleLight } from "react-icons/pi";
 import { RxPeople } from "react-icons/rx";
@@ -13,67 +12,66 @@ import { CgProfile } from "react-icons/cg";
 import { FiLogOut } from "react-icons/fi";
 import { NavLink } from "react-router-dom";
 
-
 const menuItems = [
   {
     title: "Dashboard",
     icon: TfiDashboard,
-    path:'/dashboard'
+    path: "/dashboard",
   },
   {
     title: "Jobs",
     icon: PiSuitcaseSimpleLight,
-    path:'/jobs'
+    path: "/jobs",
   },
   {
     title: "Candidates",
     icon: RxPeople,
-    path:'/candidates'
+    path: "/candidates",
   },
   {
     title: "Applications",
-    icon: BiTask
+    icon: BiTask,
   },
   {
-    title: "Calender",
-    icon: SlCalender
+    title: "Calendar",
+    icon: SlCalender,
   },
   {
     title: "Reports",
-    icon: VscGraphLine
+    icon: VscGraphLine,
   },
   {
     title: "Messages",
-    icon: TiMessages
+    icon: TiMessages,
   },
   {
     title: "Settings",
-    icon: IoSettingsOutline
+    icon: IoSettingsOutline,
   },
   {
     title: "Profile",
-    icon: CgProfile
+    icon: CgProfile,
   },
   {
     title: "Logout",
     icon: FiLogOut,
-    path:'/login'
+    path: "/login",
   },
 ];
 
-const SideBar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
+const SideBar = ({ isOpen, setIsOpen }) => {
   return (
     <>
+      {/* Mobile Button */}
       <button
-        className="fixed top-4 left-4 z-50 p-2 rounded-md bg-slate-900 text-white md:hidden"
+        className="fixed top-4 left-4 z-50 p-2 rounded bg-slate-900 text-white md:hidden"
         onClick={() => setIsOpen(!isOpen)}
       >
         {isOpen ? <HiX size={24} /> : <HiMenu size={24} />}
       </button>
 
-      <div
+      {/* Sidebar */}
+      <aside
         onMouseEnter={() => {
           if (window.innerWidth >= 768) setIsOpen(true);
         }}
@@ -81,78 +79,80 @@ const SideBar = () => {
           if (window.innerWidth >= 768) setIsOpen(false);
         }}
         className={`
-          fixed md:relative
-          top-0 left-0
-          min-h-screen
+          fixed
+          top-0
+          left-0
+          h-screen
           bg-slate-900
           text-white
+          z-40
           transition-all
           duration-300
-          z-40
-
-          ${
-            isOpen
-              ? "translate-x-0 w-64"
-              : "-translate-x-full md:translate-x-0 md:w-20"
-          }
+          ${isOpen ? "w-64" : "w-20"}
         `}
       >
-        
-        <div className="flex items-center gap-3 px-5 py-5 border-b border-slate-800">
+        {/* Logo */}
+        <div className="flex items-center gap-3 px-5 py-5 border-b border-slate-700">
           <div className="bg-indigo-600 p-2 rounded-lg">
             <BsPeopleFill size={20} />
           </div>
 
-          {isOpen && (
-            <h2 className="text-lg font-bold whitespace-nowrap">
-              Recruitment CRM
-            </h2>
-          )}
+          <span
+            className={`font-bold text-lg whitespace-nowrap transition-all ${
+              isOpen ? "opacity-100" : "opacity-0 hidden"
+            }`}
+          >
+            Recruit CRM
+          </span>
         </div>
 
-        <nav className="mt-5">
-          {menuItems.map((item) => {
-            const Icon = item.icon;
+        {/* Menu */}
+        <nav className="flex flex-col justify-between h-[calc(100%-76px)]">
+          <div>
+            {menuItems
+              .filter((item) => item.title !== "Logout")
+              .map((item) => {
+                const Icon = item.icon;
 
-            return (
-              <NavLink
-                key={item.title}
-                to={item.path}
-                className={`
-                  flex items-center
-                  px-5
-                  py-4
-                  cursor-pointer
-                  hover:bg-indigo-600
-                  transition-colors
-
-                  ${isOpen ? "justify-start" : "justify-center"}
-                `}
-              >
-                <Icon size={22} />
-
-                <span
-                  className={`
-                    ml-4
-                    whitespace-nowrap
-                    overflow-hidden
-                    transition-all
-                    duration-300
-
-                    ${
-                      isOpen
-                        ? "opacity-100 w-auto"
-                        : "opacity-0 w-0"
+                return (
+                  <NavLink
+                    key={item.title}
+                    to={item.path}
+                    className={({ isActive }) =>
+                      `flex items-center px-6 py-4 hover:bg-indigo-600 transition-colors`
                     }
-                  `}
-                >
-                  {item.title}
-                </span>
-              </NavLink>
-            );
-          })}
+                  >
+                    <Icon size={22} />
+
+                    <span
+                      className={`ml-4 whitespace-nowrap transition-all ${
+                        isOpen ? "opacity-100" : "opacity-0 w-0 overflow-hidden"
+                      }`}
+                    >
+                      {item.title}
+                    </span>
+                  </NavLink>
+                );
+              })}
+          </div>
+
+          {/* Logout */}
+          <NavLink
+            to="/login"
+            className="flex items-center px-6 py-4 border-t border-slate-700 hover:bg-red-600 transition-colors"
+          >
+            <FiLogOut size={22} />
+
+            <span
+              className={`ml-4 transition-all ${
+                isOpen ? "opacity-100" : "opacity-0 w-0 overflow-hidden"
+              }`}
+            >
+              Logout
+            </span>
+          </NavLink>
         </nav>
-      </div>
+      </aside>
     </>
   );
 };

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useJobs } from '../context/jobContext';
 import JobDetailsModal from '../layouts/jobDetailsModal';
 import ApplyModal from '../layouts/applyModal';
+import {PiSuitcaseSimpleLight} from "react-icons/pi";
 
 const JobsList = () => {
   const { loading, filteredList, selectedJob, setSelectedJobId, selectedTitle, setSelectedTitle } = useJobs();
@@ -17,10 +18,19 @@ const JobsList = () => {
   const statusColors = {
     CLOSED: 'bg-rose-100 text-rose-700',
     FILLED: 'bg-orange-100 text-orange-700',
-    FROZEN: 'bg-orange-100 text-orange-700',
-    HOLD: 'bg-orange-100 text-rose-700',
+    FROZEN: 'bg-amber-100 text-amber-700',
+    HOLD: 'bg-pink-100 text-pink-700',
     OPEN: 'bg-emerald-100 text-emerald-700',
-    DRAFT: 'bg-yellow-100 text-black-100'
+    DRAFT: 'bg-yellow-100 text-yellow-800'
+  };
+
+  const jobIconColors = {
+    CLOSED: 'border-rose-200 bg-rose-50 text-rose-600',
+    FILLED: 'border-orange-200 bg-orange-50 text-orange-600',
+    FROZEN: 'border-amber-200 bg-amber-50 text-amber-600',
+    HOLD: 'border-pink-200 bg-pink-50 text-pink-600',
+    OPEN: 'border-emerald-200 bg-emerald-50 text-emerald-600',
+    DRAFT: 'border-yellow-200 bg-yellow-50 text-yellow-700'
   };
 
 
@@ -69,6 +79,7 @@ const JobsList = () => {
                         year: 'numeric',
                       })
                     : '-';
+                  const jobIconClass = jobIconColors[job.jobStatus] || 'border-indigo-200 bg-indigo-50 text-indigo-600';
 
                   return (
                     <tr
@@ -76,8 +87,17 @@ const JobsList = () => {
                       className="cursor-pointer rounded-3xl border border-slate-200 bg-slate-50 hover:bg-slate-100"
                     >
                       <td className="px-4 py-5">
-                        <div onClick={() => setSelectedJobId(job.jobId)} className="font-medium text-slate-900">{job.title}</div>
-                        <div className="text-xs text-slate-500">{job.jobId}</div>
+                        <div className="flex items-center gap-3">
+                          <div className={`flex h-10 w-10 items-center justify-center rounded-xl border text-lg shadow-sm ${jobIconClass}`}>
+                            <PiSuitcaseSimpleLight />
+                          </div>
+                          <div>
+                            <div onClick={() => setSelectedJobId(job.jobId)} className="font-medium text-slate-900">
+                              {job.title}
+                            </div>
+                            <div className="text-xs text-slate-500">{job.jobId}</div>
+                          </div>
+                        </div>
                       </td>
                       <td className="px-4 py-5 text-slate-700">{job.department}</td>
                       <td className="px-4 py-5 text-slate-700">{job.location}</td>

@@ -1,4 +1,4 @@
-import {useContext, createContext, useState, useEffect} from 'react';
+import {useContext, createContext, useState, useEffect, useMemo} from 'react';
 import {fetchCandidates} from '../api/authApi';
 
 const CandidateContext = createContext();
@@ -7,6 +7,7 @@ export const CandidateProvider = ({children}) => {
     const [candidatesList, setCandidatesList] = useState([]);
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState('');
+    const [selectedCandidateId, setSelectedCandidateId] = useState(null);
 
     useEffect(() => {
         const loadCandidates = async() => {
@@ -35,13 +36,36 @@ export const CandidateProvider = ({children}) => {
             console.log("Failed to Fetch Candidates", error);
         }
     }
+    
+    const uniqueCandidates = Object.values(
+  candidatesList.reduce((acc, candidate) => {
+    const key = (candidate.email || '').trim().toLowerCase();
 
-    const filteredList = candidatesList.filter((candidate) => {
+    if (!key) {
+      // fallback for records without email
+      const fallbackKey = candidate.candidateId || `${candidate.firstName}-${candidate.lastName}-${candidate.phoneNumber}`;
+      if (!acc[fallbackKey]) acc[fallbackKey] = candidate;
+      return acc;
+    }
+
+    if (!acc[key]) acc[key] = candidate;
+    return acc;
+  }, {})
+);
+
+    const filteredList = uniqueCandidates.filter((candidate) => {
         const query = search.toLowerCase();
         return(
             candidate.candidateId?.toLowerCase().includes(query) || candidate.email?.toLowerCase().includes(query)
         );
     })
+
+    const selectedCandidate = useMemo(() => {
+        if(selectedCandidateId !== null){
+            return candidatesList.find((candidate) => selectedCandidateId === candidate.candidateId) || null;
+        }
+    }, [selectedCandidateId, candidatesList])
+
     const value = {
         candidatesList,
         filteredList,
@@ -49,7 +73,10 @@ export const CandidateProvider = ({children}) => {
         search,
         setSearch,
         handleChange,
-        loadCandidates
+        loadCandidates,
+        selectedCandidateId,
+        setSelectedCandidateId,
+        selectedCandidate
     };
 
     return(
