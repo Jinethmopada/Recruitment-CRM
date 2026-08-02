@@ -9,6 +9,12 @@ export const JobProvider = ({ children }) => {
   const [search, setSearch] = useState("");
   const [selectedJobId, setSelectedJobId] = useState(null);
   const [selectedTitle, setSelectedTitle] = useState(null);
+  const [openJobsCount, setOpenJobsCount] = useState(0);
+  
+    useEffect(() => {
+      const count = jobs.filter(job => job.jobStatus === 'OPEN').length;
+      setOpenJobsCount(count);
+    }, [jobs]);
 
   const defaultFilters = {
     department: "All Departments",
@@ -114,9 +120,10 @@ export const JobProvider = ({ children }) => {
       setSelectedJobId,
       loadJobs,
       selectedTitle,
-      setSelectedTitle
+      setSelectedTitle,
+      openJobsCount,
     }),
-    [jobs, loading, search, filters, filteredList, selectedJob, selectedJobId, selectedTitle, setSelectedTitle]
+    [jobs, loading, search, filters, filteredList, selectedJob, selectedJobId, selectedTitle, setSelectedTitle, openJobsCount]
   );
 
   return <JobContext.Provider value={value}>{children}</JobContext.Provider>;

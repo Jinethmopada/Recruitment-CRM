@@ -8,6 +8,21 @@ export const CandidateProvider = ({children}) => {
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState('');
     const [selectedCandidateId, setSelectedCandidateId] = useState(null);
+      const [interviewCount, setInterviewCount] = useState(0);
+      const [hireCount, setHireCount] = useState(0);
+      const [rejectedCount, setRejectedCount] = useState(0);
+      const [screeningCount, setScreeningCount] = useState(0);
+    
+      useEffect(() => {
+        const interviewCount = candidatesList.filter(candidate => candidate.hiringStatus === 'Interview').length;
+        const hireCount = candidatesList.filter(candidate => candidate.hiringStatus === 'Hired').length;
+        const rejectedCount = candidatesList.filter(candidate => candidate.hiringStatus === 'Rejected').length;
+        const screeningCount = candidatesList.filter(candidate => candidate.hiringStatus === 'Screening').length;
+        setInterviewCount(interviewCount);
+        setHireCount(hireCount);
+        setRejectedCount(rejectedCount);
+        setScreeningCount(screeningCount);
+      }, [candidatesList]);
 
     useEffect(() => {
         const loadCandidates = async() => {
@@ -76,7 +91,11 @@ export const CandidateProvider = ({children}) => {
         loadCandidates,
         selectedCandidateId,
         setSelectedCandidateId,
-        selectedCandidate
+        selectedCandidate,
+        interviewCount,
+        hireCount,
+        rejectedCount,
+        screeningCount
     };
 
     return(
