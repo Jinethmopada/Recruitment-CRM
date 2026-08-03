@@ -36,6 +36,10 @@ const jobsSchema = new mongoose.Schema({
     },
     experience:{
         type: String
+    },
+    siteType:{
+        type: String,
+        required:true
     }
 },
 {

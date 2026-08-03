@@ -2,14 +2,14 @@ import Jobs from '../models/Jobs.js';
 
 export const postJob = async(req,res) => {
     try {
-        const {jobId,title,description,jobType,department,location,experience} = req.body;
+        const {jobId,title,description,jobType,department,location,experience,siteType} = req.body;
         const jobStatus = req.body.jobStatus || "OPEN";
         
-        if(!jobId || !title || !description){
+        if(!jobId || !title || !description || !siteType){
             return res.status(400).json({success:false,message:"Mandatory Fields are missing while creating a Job"});
         }
         const newJob = await Jobs.create({
-            jobId,title,description,jobStatus,jobType,department,location,experience
+            jobId,title,description,jobStatus,jobType,department,location,experience,siteType
         });
 
         res.status(201).json({
