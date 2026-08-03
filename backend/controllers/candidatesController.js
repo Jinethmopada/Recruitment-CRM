@@ -26,7 +26,7 @@ export const postCandidate = async(req,res) => {
 
 export const getCandidates = async(req,res) => {
     try{
-        const candidates = await Candidates.find();
+        const candidates = await Candidates.find().sort({createdDate:-1});
         res.status(200).json({
             success:true,
             candidates,
