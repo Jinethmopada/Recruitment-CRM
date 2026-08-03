@@ -102,10 +102,12 @@ const ApplyModal = ({ onClose }) => {
 
   return (
     <div
+      data-testid="apply-modal"
       className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 px-4 py-6 backdrop-blur-sm"
       onClick={onClose}
     >
       <div
+        data-testid="apply-modal-content"
         className="w-full max-w-3xl rounded-3xl border border-slate-200 bg-white shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
@@ -114,6 +116,7 @@ const ApplyModal = ({ onClose }) => {
             <h2 className="text-xl font-semibold text-slate-800">{`You're Applying to: ${selectedJob?.title || selectedTitle || "Selected role"}(${selectedJob?.jobId || selectedJobId || "Selected job"})`}</h2>
           </div>
           <button
+            data-testid="apply-modal-close"
             type="button"
             onClick={onClose}
             className="rounded-full border border-slate-200 p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
@@ -122,11 +125,12 @@ const ApplyModal = ({ onClose }) => {
           </button>
         </div>
 
-        <form onSubmit={submitHandler} className="max-h-[75vh] overflow-y-auto px-6 py-6">
+        <form data-testid="apply-form" onSubmit={submitHandler} className="max-h-[75vh] overflow-y-auto px-6 py-6">
           <div className="grid gap-4 md:grid-cols-2">
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">First Name</label>
               <input
+                data-testid="apply-first-name"
                 type="text"
                 name="firstName"
                 onChange={onHandleChange}
@@ -140,6 +144,7 @@ const ApplyModal = ({ onClose }) => {
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">Last Name</label>
               <input
+                data-testid="apply-last-name"
                 type="text"
                 name="lastName"
                 onChange={onHandleChange}
@@ -153,6 +158,7 @@ const ApplyModal = ({ onClose }) => {
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">Email</label>
               <input
+                data-testid="apply-email"
                 type="email"
                 name="email"
                 onChange={onHandleChange}
@@ -166,6 +172,7 @@ const ApplyModal = ({ onClose }) => {
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">Phone Number</label>
               <input
+                data-testid="apply-phone"
                 type="tel"
                 name="phoneNumber"
                 onChange={onHandleChange}
@@ -179,6 +186,7 @@ const ApplyModal = ({ onClose }) => {
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">City</label>
               <input
+                data-testid="apply-city"
                 type="text"
                 name="city"
                 onChange={onHandleChange}
@@ -192,6 +200,7 @@ const ApplyModal = ({ onClose }) => {
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">State</label>
               <input
+                data-testid="apply-state"
                 type="text"
                 name="state"
                 onChange={onHandleChange}
@@ -205,6 +214,7 @@ const ApplyModal = ({ onClose }) => {
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">Country</label>
               <input
+                data-testid="apply-country"
                 type="text"
                 name="country"
                 onChange={onHandleChange}
@@ -290,6 +300,7 @@ const ApplyModal = ({ onClose }) => {
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">Gender</label>
               <select
+                data-testid="apply-gender"
                 name="Gender"
                 onChange={onHandleChange}
                 value={candidateData.Gender}
@@ -306,6 +317,7 @@ const ApplyModal = ({ onClose }) => {
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">Citizenship</label>
               <input
+                data-testid="apply-citizenship"
                 type="text"
                 name="Citizenship"
                 onChange={onHandleChange}
@@ -318,6 +330,7 @@ const ApplyModal = ({ onClose }) => {
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">Total Experience</label>
               <input
+                data-testid="apply-experience"
                 type="text"
                 name="totalExperience"
                 onChange={onHandleChange}
@@ -343,6 +356,7 @@ const ApplyModal = ({ onClose }) => {
 
           <div className="mt-6 flex justify-end gap-3">
             <button
+              data-testid="apply-modal-cancel"
               type="button"
               onClick={onClose}
               className="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-100"
@@ -350,6 +364,7 @@ const ApplyModal = ({ onClose }) => {
               Cancel
             </button>
             <button
+              data-testid="apply-submit-button"
               type="submit"
               className="rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-indigo-700"
             >

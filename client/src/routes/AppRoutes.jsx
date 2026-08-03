@@ -9,23 +9,25 @@ import Candidates from "../pages/Candidates/candidates";
 
 const AppRoutes = () => {
   return (
-    <Routes>
-    <Route
-     path="/"
-     element={
-     localStorage.getItem("token")
-      ? <Navigate to="/dashboard" replace />
-      : <LoginPage />
-    }/>
-      <Route path="/register" element={<Registration />} />
-      <Route path="/login" element={<LoginPage />} />
+    <div data-testid="app-routes">
+      <Routes>
+      <Route
+       path="/"
+       element={
+       localStorage.getItem("token")
+        ? <Navigate data-testid="navigate-dashboard" to="/dashboard" replace />
+        : <LoginPage />
+      }/>
+        <Route path="/register" element={<Registration />} />
+        <Route path="/login" element={<LoginPage />} />
 
-      <Route element={<DashboardLayout />}>
-        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-        <Route path="/jobs" element={<ProtectedRoute><Jobs /></ProtectedRoute>} />
-        <Route path='/candidates' element= {<ProtectedRoute><Candidates/></ProtectedRoute>}/>
-      </Route>
-    </Routes>
+        <Route element={<DashboardLayout />}>
+          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/jobs" element={<ProtectedRoute><Jobs /></ProtectedRoute>} />
+          <Route path='/candidates' element= {<ProtectedRoute><Candidates/></ProtectedRoute>}/>
+        </Route>
+      </Routes>
+    </div>
   );
 };
 

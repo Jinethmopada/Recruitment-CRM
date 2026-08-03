@@ -57,10 +57,12 @@ const JobModal = ({ onClose }) => {
     
   return (
     <div
+      data-testid="job-modal"
       className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 px-4 py-6 backdrop-blur-sm"
       onClick={onClose}
     >
       <div
+        data-testid="job-modal-content"
         className="w-full max-w-3xl rounded-3xl border border-slate-200 bg-white shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
@@ -70,6 +72,7 @@ const JobModal = ({ onClose }) => {
             <p className="text-sm text-slate-500">Fill in the details below to post a new opportunity.</p>
           </div>
           <button
+            data-testid="job-modal-close"
             type="button"
             onClick={onClose}
             className="rounded-full border border-slate-200 p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
@@ -78,11 +81,12 @@ const JobModal = ({ onClose }) => {
           </button>
         </div>
 
-        <form onSubmit={submitHandler} className="max-h-[75vh] overflow-y-auto px-6 py-6">
+        <form data-testid="job-form" onSubmit={submitHandler} className="max-h-[75vh] overflow-y-auto px-6 py-6">
           <div className="grid gap-4 md:grid-cols-2">
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">Job ID</label>
               <input
+                data-testid="job-id-input"
                 type="text"
                 name="jobId"
                 onChange={onHandleChange}
@@ -96,6 +100,7 @@ const JobModal = ({ onClose }) => {
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">Title</label>
               <input
+                data-testid="job-title-input"
                 required
                 type="text"
                 name="title"
@@ -109,6 +114,7 @@ const JobModal = ({ onClose }) => {
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">Department</label>
               <input
+                data-testid="job-department-input"
                 type="text"
                 required
                 name="department"
@@ -122,6 +128,7 @@ const JobModal = ({ onClose }) => {
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">Location</label>
               <input
+                data-testid="job-location-input"
                 required
                 type="text"
                 name="location"
@@ -134,7 +141,7 @@ const JobModal = ({ onClose }) => {
 
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">Job Type</label>
-               <select required name="jobType" value={jobData.jobType} onChange={onHandleChange} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">
+               <select data-testid="job-type-select" required name="jobType" value={jobData.jobType} onChange={onHandleChange} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">
                 <option>Select Type</option>
                 <option>Full Time</option>
                 <option>Part Time</option>
@@ -144,7 +151,7 @@ const JobModal = ({ onClose }) => {
 
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">Site Type</label>
-               <select required name="siteType" value={jobData.siteType} onChange={onHandleChange} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">
+               <select data-testid="job-site-type-select" required name="siteType" value={jobData.siteType} onChange={onHandleChange} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">
                 <option>Select Site Type</option>
                 <option>External</option>
                 <option>Internal</option>
@@ -155,6 +162,7 @@ const JobModal = ({ onClose }) => {
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">Experience Level</label>
                <input
+                data-testid="job-experience-input"
                 type="text"
                 required
                 name="experience"
@@ -167,7 +175,7 @@ const JobModal = ({ onClose }) => {
 
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">Status</label>
-              <select required name="jobStatus" value={jobData.jobStatus} onChange={onHandleChange} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">
+              <select data-testid="job-status-select" required name="jobStatus" value={jobData.jobStatus} onChange={onHandleChange} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">
                 <option>Select Status</option>
                 <option>OPEN</option>
                 <option>CLOSED</option>
@@ -182,6 +190,7 @@ const JobModal = ({ onClose }) => {
           <div className="mt-4">
             <label className="mb-1.5 block text-sm font-medium text-slate-700">Description</label>
             <textarea
+            data-testid="job-description-input"
             name="description"
             required
             value={jobData.description}
@@ -194,6 +203,7 @@ const JobModal = ({ onClose }) => {
 
           <div className="mt-6 flex justify-end gap-3">
             <button
+              data-testid="job-modal-cancel"
               type="button"
               onClick={onClose}
               className="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-100"
@@ -201,6 +211,7 @@ const JobModal = ({ onClose }) => {
               Cancel
             </button>
             <button
+              data-testid="job-submit-button"
               type="submit"
               className="rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-indigo-700"
             >

@@ -6,12 +6,14 @@ import { CandidateProvider } from './context/candidateContext.jsx'
 
 const App = () => {
   return (
-    <JobProvider>
-    <CandidateProvider>
-      <Toaster/>
-    <AppRoutes />
-    </CandidateProvider>
-    </JobProvider>
+    <div data-testid="app-root">
+      <JobProvider>
+      <CandidateProvider>
+        <Toaster />
+      <AppRoutes />
+      </CandidateProvider>
+      </JobProvider>
+    </div>
   )
 }
 

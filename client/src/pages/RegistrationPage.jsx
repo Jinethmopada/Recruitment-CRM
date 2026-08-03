@@ -43,7 +43,7 @@ const Registration = () => {
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-50 to-slate-100 grid lg:grid-cols-2">
+    <div data-testid="register-page" className="min-h-screen bg-linear-to-br from-slate-50 to-slate-100 grid lg:grid-cols-2">
       <LeftSection />
       <RightSection formData={formData} handleChange={handleChange} handleSubmit={handleSubmit}/>
     </div>

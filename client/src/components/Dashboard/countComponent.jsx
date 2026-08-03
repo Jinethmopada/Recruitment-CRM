@@ -10,7 +10,7 @@ const CountComponent = ({ Icon, count, text, accent = 'indigo' }) => {
   };
 
   return (
-    <div className="flex min-w-55 flex-1 items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+    <div data-testid={`count-card-${text.toLowerCase().replace(/\s+/g, '-')}`} className="flex min-w-55 flex-1 items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
       <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${accentStyles[accent] || accentStyles.indigo}`}>
         <Icon className="text-xl" />
       </div>
@@ -18,7 +18,7 @@ const CountComponent = ({ Icon, count, text, accent = 'indigo' }) => {
       <div className="flex-1">
         <p className="text-sm font-medium text-slate-500">{text}</p>
         <div className="mt-1 flex items-end justify-between gap-2">
-          <h3 className="text-3xl font-bold tracking-tight text-slate-800">{count}</h3>
+          <h3 data-testid={`count-value-${text.toLowerCase().replace(/\s+/g, '-')}`} className="text-3xl font-bold tracking-tight text-slate-800">{count}</h3>
         </div>
       </div>
     </div>

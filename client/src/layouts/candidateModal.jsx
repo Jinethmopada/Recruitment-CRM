@@ -21,10 +21,12 @@ const CandidateModal = () => {
 
   return (
     <div
+      data-testid="candidate-modal"
       className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 px-4 py-6 backdrop-blur-sm"
       onClick={() => setSelectedCandidateId(null)}
     >
       <div
+        data-testid="candidate-modal-content"
         className="w-full max-w-3xl rounded-3xl border border-slate-200 bg-white shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
@@ -34,6 +36,7 @@ const CandidateModal = () => {
             <p className="text-sm text-slate-500">Complete information for the selected candidate.</p>
           </div>
           <button
+            data-testid="candidate-modal-close"
             type="button"
             onClick={() => setSelectedCandidateId(null)}
             className="rounded-full border border-slate-200 p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"

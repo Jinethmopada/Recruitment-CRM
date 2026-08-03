@@ -36,15 +36,15 @@ const JobsList = () => {
 
   return (
     <>
-      <div className="rounded-4xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div data-testid="jobs-list-section" className="rounded-4xl border border-slate-200 bg-white p-6 shadow-sm">
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-2xl font-semibold px-2">Posted Jobs</h2>
+            <h2 data-testid="jobs-list-title" className="text-2xl font-semibold px-2">Posted Jobs</h2>
           </div>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="min-w-full border-separate border-spacing-y-3 text-sm">
+        <div data-testid="jobs-table-wrapper" className="overflow-x-auto">
+          <table data-testid="jobs-table" className="min-w-full border-separate border-spacing-y-3 text-sm">
             <thead className="bg-slate-50 text-left text-xs uppercase tracking-[0.16em] text-slate-500">
               <tr>
                 <th className="px-4 py-3">Job Title</th>

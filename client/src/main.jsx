@@ -6,6 +6,8 @@ import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
-    <App />
+    <div data-testid="browser-router-root">
+      <App />
+    </div>
   </BrowserRouter>
 );

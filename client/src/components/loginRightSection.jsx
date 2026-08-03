@@ -19,12 +19,13 @@ const LoginRightSection = ({formData,handleChange,handleSubmit}) => {
               </div>
     
               {/* Form */}
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form data-testid="login-form" onSubmit={handleSubmit} className="space-y-5">
                 {/* Email Address */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
                   <div className="relative">
                     <input
+                      data-testid="login-email"
                       type="email"
                       name='email'
                       value={formData.email}
@@ -41,6 +42,7 @@ const LoginRightSection = ({formData,handleChange,handleSubmit}) => {
                   <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
                   <div className="relative">
                     <input
+                      data-testid="login-password"
                       type={showPassword ? "text" : "password"}
                       placeholder="Create a password"
                       name='password'
@@ -61,6 +63,7 @@ const LoginRightSection = ({formData,handleChange,handleSubmit}) => {
     
                 {/* Sign In Button */}
                 <button
+                  data-testid="login-submit-button"
                   type="submit"
                   className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition duration-200 flex items-center justify-center gap-2"
                 >

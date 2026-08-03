@@ -12,12 +12,12 @@ const Jobs = () => {
   }
 
   return (
-    <div>
-    <div className="flex justify-between">
-    <h1 className="text-4xl font-bold whitespace-nowrap">Jobs</h1>
-    <button onClick={() => onClickHandler()} className="border-2 rounded-lg bg-indigo-600 text-white text-center p-3 m-3">+ Create Job</button>
+    <div data-testid="jobs-page">
+    <div data-testid="jobs-page-header" className="flex justify-between">
+    <h1 data-testid="jobs-page-title" className="text-4xl font-bold whitespace-nowrap">Jobs</h1>
+    <button data-testid="create-job-button" onClick={() => onClickHandler()} className="border-2 rounded-lg bg-indigo-600 text-white text-center p-3 m-3">+ Create Job</button>
     </div>
-    <div className="space-y-6">
+    <div data-testid="jobs-page-content" className="space-y-6">
     {isOpen && <JobModal onClose={() => setIsOpen(false)} />}
     <JobSearchLayout/>
     <JobsList/>

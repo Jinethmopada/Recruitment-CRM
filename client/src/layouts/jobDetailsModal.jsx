@@ -50,7 +50,7 @@ const JobDetailsModal = () => {
                   experience: updatedJobsData.experience,
                   location: updatedJobsData.location,
                   jobStatus: updatedJobsData.jobStatus,
-                  postedDate: new Date,
+                  // postedDate: new Date,
                   siteType: updatedJobsData.siteType
               };
   
@@ -83,20 +83,22 @@ const JobDetailsModal = () => {
     }
   };
 
-  const postedDate = selectedJob.postedDate
-    ? new Date(selectedJob.postedDate).toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-      })
-    : '-';
+  // const postedDate = selectedJob.postedDate
+  //   ? new Date(selectedJob.postedDate).toLocaleDateString('en-US', {
+  //       month: 'short',
+  //       day: 'numeric',
+  //       year: 'numeric',
+  //     })
+  //   : '-';
 
   return (
     <div
+      data-testid="job-details-modal"
       className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 px-4 py-6 backdrop-blur-sm"
       onClick={() => setSelectedJobId(null)}
     >
       <div
+        data-testid="job-details-modal-content"
         className="w-full max-w-3xl rounded-3xl border border-slate-200 bg-white shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
@@ -106,6 +108,7 @@ const JobDetailsModal = () => {
             <p className="text-sm text-slate-500">Complete information for this job posting.</p>
           </div>
           <button
+            data-testid="job-details-close"
             type="button"
             onClick={() => setSelectedJobId(null)}
             className="rounded-full border border-slate-200 p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
@@ -194,10 +197,10 @@ const JobDetailsModal = () => {
                 placeholder="Engineering"
               /> : <p className="text-sm text-slate-800">{selectedJob.experience || '-'}</p>}
             </div>
-            <div>
+            {/* <div>
               <p className="text-sm font-medium text-slate-600">Posted Date</p>
               <p className="text-sm text-slate-800">{postedDate}</p>
-            </div>
+            </div> */}
           </div>
 
           <div className="mt-5">
@@ -216,6 +219,7 @@ const JobDetailsModal = () => {
 
           <div className="mt-6 flex justify-between">
            <button
+              data-testid="delete-job-button"
               type="button"
               onClick={handleDeleteJob}
               className="rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-indigo-700"
@@ -223,6 +227,7 @@ const JobDetailsModal = () => {
               Delete
             </button>
           {!updateClick ? <button
+              data-testid="update-job-button"
               type="button"
               onClick={handleUpdate}
               className="rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-indigo-700"
@@ -230,6 +235,7 @@ const JobDetailsModal = () => {
               Update
             </button> : ''}
             {updateClick ? <button
+              data-testid="save-job-button"
               type="submit"
               onClick={saveJob}
               className="rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-indigo-700"

@@ -7,17 +7,18 @@ const DashboardLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-slate-100">
+    <div data-testid="dashboard-layout" className="min-h-screen bg-slate-100">
       <SideBar isOpen={isOpen} setIsOpen={setIsOpen} />
 
       <div
+        data-testid="dashboard-content-wrapper"
         className={`transition-all duration-300 ${
           isOpen ? "md:ml-64" : "md:ml-20"
         }`}
       >
         <NavBar />
 
-        <main className="p-6">
+        <main data-testid="dashboard-main-content" className="p-6">
           <Outlet />
         </main>
       </div>

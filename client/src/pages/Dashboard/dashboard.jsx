@@ -7,6 +7,7 @@ import { RxPeople } from "react-icons/rx";
 import { BiTask } from "react-icons/bi";
 import { HiOutlineBriefcase } from "react-icons/hi";
 import { FaStar } from "react-icons/fa";
+import Charts from '../../components/Dashboard/reportsSection.jsx';
 
 const Dashboard = () => {
   const { jobs,openJobsCount } = useJobs();
@@ -21,11 +22,16 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="space-y-6">
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+    <div data-testid="dashboard-page" className="space-y-6">
+      <div data-testid="dashboard-metrics" className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
         {metrics.map((metric, index) => (
-          <CountComponent key={index} {...metric} />
+          <div key={index} data-testid={`metric-${metric.text.toLowerCase().replace(/\s+/g, '-')}`}>
+            <CountComponent {...metric} />
+          </div>
         ))}
+      </div>
+      <div data-testid="dashboard-charts">
+        <Charts/>
       </div>
     </div>
   );

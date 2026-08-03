@@ -29,10 +29,11 @@ const JobSearchLayout = () => {
   );
 
   return (
-    <div>
+    <div data-testid="jobs-search-layout">
       <div className="rounded-4xl border border-slate-200 bg-slate-100 p-6 shadow-sm">
         <div className="grid gap-4 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <input
+            data-testid="job-search-input"
             type="search"
             value={search}
             onChange={onHandleChange}
@@ -43,6 +44,7 @@ const JobSearchLayout = () => {
           <div>
             <label className="block">Department</label>
             <select
+              data-testid="filter-department"
               name="department"
               value={filters.department}
               onChange={onFilterChange}
@@ -59,6 +61,7 @@ const JobSearchLayout = () => {
           <div>
             <label className="block">Location</label>
             <select
+              data-testid="filter-location"
               name="location"
               value={filters.location}
               onChange={onFilterChange}
@@ -75,6 +78,7 @@ const JobSearchLayout = () => {
           <div>
             <label className="block">Job Type</label>
             <select
+              data-testid="filter-job-type"
               name="jobType"
               value={filters.jobType}
               onChange={onFilterChange}
@@ -91,6 +95,7 @@ const JobSearchLayout = () => {
           <div>
             <label className="block">Experience Level</label>
             <select
+              data-testid="filter-experience"
               name="experience"
               value={filters.experience}
               onChange={onFilterChange}
@@ -107,6 +112,7 @@ const JobSearchLayout = () => {
           <div>
             <label className="block">Site Type</label>
             <select
+              data-testid="filter-site-type"
               name="siteType"
               value={filters.siteType}
               onChange={onFilterChange}
@@ -123,6 +129,7 @@ const JobSearchLayout = () => {
           <div>
             <label className="block">Status</label>
             <select
+              data-testid="filter-status"
               name="status"
               value={filters.status}
               onChange={onFilterChange}
@@ -136,7 +143,7 @@ const JobSearchLayout = () => {
             </select>
           </div>
           <div className="flex">
-            <button onClick={() => clearFilters()} className="border-2 rounded-lg bg-indigo-600 text-white text-center p-3 m-3">Clear Filters</button>
+            <button data-testid="clear-filters-button" onClick={() => clearFilters()} className="border-2 rounded-lg bg-indigo-600 text-white text-center p-3 m-3">Clear Filters</button>
           </div>
         </div>
       </div>

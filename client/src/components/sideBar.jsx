@@ -64,6 +64,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
     <>
       {/* Mobile Button */}
       <button
+        data-testid="sidebar-toggle"
         className="fixed top-4 left-4 z-50 p-2 rounded bg-slate-900 text-white md:hidden"
         onClick={() => setIsOpen(!isOpen)}
       >
@@ -72,6 +73,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
 
       {/* Sidebar */}
       <aside
+        data-testid="sidebar"
         onMouseEnter={() => {
           if (window.innerWidth >= 768) setIsOpen(true);
         }}
@@ -92,7 +94,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
         `}
       >
         {/* Logo */}
-        <div className="flex items-center gap-3 px-5 py-5 border-b border-slate-700">
+        <div data-testid="sidebar-logo" className="flex items-center gap-3 px-5 py-5 border-b border-slate-700">
           <div className="bg-indigo-600 p-2 rounded-lg">
             <BsPeopleFill size={20} />
           </div>
@@ -118,6 +120,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                   <NavLink
                     key={item.title}
                     to={item.path}
+                    data-testid={`sidebar-link-${item.title.toLowerCase().replace(/\s+/g, '-')}`}
                     className={({ isActive }) =>
                       `flex items-center px-6 py-4 hover:bg-indigo-600 transition-colors`
                     }
@@ -139,6 +142,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
           {/* Logout */}
           <NavLink
             to="/login"
+            data-testid="sidebar-link-logout"
             className="flex items-center px-6 py-4 border-t border-slate-700 hover:bg-red-600 transition-colors"
           >
             <FiLogOut size={22} />

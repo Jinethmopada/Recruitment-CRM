@@ -23,12 +23,13 @@ const RightSection = ({formData,handleChange,handleSubmit}) => {
               </div>
     
               {/* Form */}
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form data-testid="register-form" onSubmit={handleSubmit} className="space-y-5">
                 {/* Full Name */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
                   <div className="relative">
                     <input
+                      data-testid="register-full-name"
                       type="text"
                       value={formData.fullName}
                       name='fullName'
@@ -46,6 +47,7 @@ const RightSection = ({formData,handleChange,handleSubmit}) => {
                   <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
                   <div className="relative">
                     <input
+                      data-testid="register-email"
                       type="email"
                       placeholder="Enter your email"
                       name='email'
@@ -63,6 +65,7 @@ const RightSection = ({formData,handleChange,handleSubmit}) => {
                   <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
                   <div className="relative">
                     <input
+                      data-testid="register-password"
                       type={showPassword ? "text" : "password"}
                       value={formData.password}
                       name='password'
@@ -87,6 +90,7 @@ const RightSection = ({formData,handleChange,handleSubmit}) => {
                   <label className="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
                   <div className="relative">
                     <input
+                      data-testid="register-confirm-password"
                       type={showConfirmPassword ? "text" : "password"}
                       placeholder="Confirm your password"
                       value={formData.confirmPassword}
@@ -119,6 +123,7 @@ const RightSection = ({formData,handleChange,handleSubmit}) => {
     
                 {/* Create Account Button */}
                 <button
+                  data-testid="register-submit-button"
                   type="submit"
                   className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition duration-200 flex items-center justify-center gap-2"
                 >

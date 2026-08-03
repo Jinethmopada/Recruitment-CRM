@@ -4,7 +4,7 @@ import CandidateSearchLayout from "../../layouts/candidateSearchLayout"
 
 const Candidates = () => {
     return(
-        <div className="space-y-6">
+        <div data-testid="candidates-page" className="space-y-6">
             <CandidateSearchLayout/>
             <CandidatesList/>
         </div>

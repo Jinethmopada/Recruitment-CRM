@@ -52,7 +52,7 @@ const LoginPage = () => {
 
   return (
     <>
-    <div className="min-h-screen bg-linear-to-br from-slate-50 to-slate-100 grid lg:grid-cols-2">
+    <div data-testid="login-page" className="min-h-screen bg-linear-to-br from-slate-50 to-slate-100 grid lg:grid-cols-2">
       <LeftSection />
       <LoginRightSection formData={formData} handleChange={handleChange} handleSubmit={handleSubmit}/>
     </div>

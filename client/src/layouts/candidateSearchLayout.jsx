@@ -9,11 +9,12 @@ const CandidateSearchLayout = () => {
     const {search, handleChange,candidatesList,interviewCount,hireCount,rejectedCount,screeningCount} = useCandidates();
 
   return (
-    <div className="mb-6">
+    <div data-testid="candidate-search-layout" className="mb-6">
       <div className="rounded-4xl border border-indigo-200 bg-slate-100 p-4 shadow-sm md:p-6">
         <div className="flex flex-col gap-4 xl:flex-row xl:items-center">
           <div className="flex-1">
             <input
+              data-testid="candidate-search-input"
               type="search"
               value={search}
               onChange={handleChange}
