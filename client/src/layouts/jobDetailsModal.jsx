@@ -14,7 +14,8 @@ const JobDetailsModal = () => {
     jobType:"",
     department:"",
     experience:"",
-    location:""
+    location:"",
+    siteType:""
   })
 
   useEffect(() => {
@@ -49,7 +50,8 @@ const JobDetailsModal = () => {
                   experience: updatedJobsData.experience,
                   location: updatedJobsData.location,
                   jobStatus: updatedJobsData.jobStatus,
-                  postedDate: new Date
+                  postedDate: new Date,
+                  siteType: updatedJobsData.siteType
               };
   
               const response = await updateJob(payload);
@@ -169,6 +171,17 @@ const JobDetailsModal = () => {
                 <option value="Contract">Contract</option>
               </select>: <p className="text-sm text-slate-800">{selectedJob.jobType || '-'}</p>}
             </div>
+
+            <div>
+              <p className="text-sm font-medium text-slate-600">Site Type</p>
+              {updateClick ? <select required name="siteType" value={updatedJobsData.siteType} onChange={handleChange} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">
+                <option>Select Site Type</option>
+                <option value="External">External</option>
+                <option value="Internal">Internal</option>
+                <option value="Both">Both</option>
+              </select>: <p className="text-sm text-slate-800">{selectedJob.siteType || '-'}</p>}
+            </div>
+
             <div>
               <p className="text-sm font-medium text-slate-600">Experience</p>
               {updateClick ?<input

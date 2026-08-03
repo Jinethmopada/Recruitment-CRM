@@ -22,6 +22,7 @@ export const JobProvider = ({ children }) => {
     jobType: "All Types",
     experience: "All Levels",
     status: "All Status",
+    siteType: "All Site Types"
   };
   const [filters, setFilters] = useState(defaultFilters);
   const [filteredList, setFilteredList] = useState([]);
@@ -72,6 +73,7 @@ export const JobProvider = ({ children }) => {
         job.experience === filters.experience;
       const matchesStatus =
         filters.status === "All Status" || job.jobStatus === filters.status;
+      const matchesSiteType = filters.siteType === "All Site Types" || job.siteType === filters.siteType;
 
       return (
         matchesSearch &&
@@ -79,7 +81,7 @@ export const JobProvider = ({ children }) => {
         matchesLocation &&
         matchesJobType &&
         matchesExperience &&
-        matchesStatus
+        matchesStatus && matchesSiteType
       );
     });
     setFilteredList(jobsList);

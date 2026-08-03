@@ -51,6 +51,7 @@ const JobsList = () => {
                 <th className="px-4 py-3">Department</th>
                 <th className="px-4 py-3">Location</th>
                 <th className="px-4 py-3">Job Type</th>
+                <th className="px-4 py-3">Site Type</th>
                 <th className="px-4 py-3">Experience</th>
                 <th className="px-4 py-3">Posted Date</th>
                 <th className="px-4 py-3">Status</th>
@@ -104,6 +105,11 @@ const JobsList = () => {
                       <td className="px-4 py-5">
                         <span className="inline-flex rounded-full bg-indigo-100 px-3 py-1 text-xs font-semibold text-indigo-900">
                           {job.jobType}
+                        </span>
+                      </td>
+                       <td className="px-4 py-5">
+                        <span className="inline-flex rounded-full bg-indigo-100 px-3 py-1 text-xs font-semibold text-indigo-900">
+                          {job.siteType}
                         </span>
                       </td>
                       <td className="px-4 py-5 text-slate-700">{job.experience}</td>

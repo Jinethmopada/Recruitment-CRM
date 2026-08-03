@@ -13,7 +13,8 @@ const JobModal = ({ onClose }) => {
         jobType:"",
         department:"",
         experience:"",
-        location:""
+        location:"",
+        siteType:""
     });
 
     const onHandleChange = (e) => {
@@ -23,7 +24,7 @@ const JobModal = ({ onClose }) => {
     const submitHandler = async(e) => {
         e.preventDefault();
         if(!jobData.jobId || !jobData.title || !jobData.description || !jobData.department || !jobData.jobStatus
-            || !jobData.location || !jobData.experience){
+            || !jobData.location || !jobData.experience || !jobData.siteType){
                 toast.error("All Mandatory fields are required");
                 return;
             }
@@ -36,6 +37,7 @@ const JobModal = ({ onClose }) => {
                 department: jobData.department,
                 experience: jobData.experience,
                 location: jobData.location,
+                siteType: jobData.siteType
             };
 
             const response = await postJob(payload);
@@ -137,6 +139,16 @@ const JobModal = ({ onClose }) => {
                 <option>Full Time</option>
                 <option>Part Time</option>
                 <option>Contract</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="mb-1.5 block text-sm font-medium text-slate-700">Site Type</label>
+               <select required name="siteType" value={jobData.siteType} onChange={onHandleChange} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">
+                <option>Select Site Type</option>
+                <option>External</option>
+                <option>Internal</option>
+                <option>Both</option>
               </select>
             </div>
 

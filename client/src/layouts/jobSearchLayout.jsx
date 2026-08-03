@@ -23,6 +23,10 @@ const JobSearchLayout = () => {
     () => ["All Status", ...new Set(jobs.map((job) => job.jobStatus || ""))],
     [jobs]
   );
+  const siteType = useMemo(
+    () => ["All Site Types", ...new Set(jobs.map((job) => job.siteType || ""))],
+    [jobs]
+  );
 
   return (
     <div>
@@ -93,6 +97,22 @@ const JobSearchLayout = () => {
               className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
             >
               {experience.map((item, index) => (
+                <option key={index} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="block">Site Type</label>
+            <select
+              name="siteType"
+              value={filters.siteType}
+              onChange={onFilterChange}
+              className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+            >
+              {siteType.map((item, index) => (
                 <option key={index} value={item}>
                   {item}
                 </option>
