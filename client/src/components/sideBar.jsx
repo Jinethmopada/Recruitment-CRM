@@ -29,7 +29,7 @@ const menuItems = [
     path: "/candidates",
   },
   {
-    title: "Applications",
+    title: "Employees",
     icon: BiTask,
   },
   {

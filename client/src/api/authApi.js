@@ -44,3 +44,13 @@ export const updateCandidateStatus = async(data) => {
     const response = await api.put('/candidate-status', data);
     return response.data;
 }
+
+export const postEmployee = async(data) => {
+    const response = await api.post('/employee',data);
+    return response.data
+}
+
+export const getEmployees = async() => {
+    const response = await api.get('/employees');
+    return response.data.employees;
+}
