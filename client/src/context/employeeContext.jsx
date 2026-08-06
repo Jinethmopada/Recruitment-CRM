@@ -8,6 +8,7 @@ export const EmployeeProvider = ({children}) => {
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState('');
     const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
+    const [employeeCount,setEmployeeCount] = useState(0);
     
 
     useEffect(() => {
@@ -24,6 +25,10 @@ export const EmployeeProvider = ({children}) => {
 
         loadEmployees();
     },[])
+
+    useEffect(() => {
+        setEmployeeCount(employeesList.length);
+    },[employeesList])
 
     const handleChange = (e) => {
         setSearch(e.target.value);
@@ -77,14 +82,15 @@ export const EmployeeProvider = ({children}) => {
         loadEmployees,
         selectedEmployeeId,
         setSelectedEmployeeId,
-        selectedEmployee
+        selectedEmployee,
+        employeeCount
     };
 
     return(
-        <CandidateContext.Provider value={value}>
+        <EmployeeContext.Provider value={value}>
         {children}
-        </CandidateContext.Provider>
+        </EmployeeContext.Provider>
     )
 }
 
-export const useCandidates = () => useContext(CandidateContext);
+export const useEmployees = () => useContext(EmployeeContext);

@@ -31,6 +31,7 @@ const menuItems = [
   {
     title: "Employees",
     icon: BiTask,
+    path:'/employees'
   },
   {
     title: "Calendar",

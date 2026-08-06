@@ -6,6 +6,7 @@ import DashboardLayout from "../layouts/dashboardLayout";
 import Jobs from "../pages/Jobs/jobs";
 import ProtectedRoute from "./ProtectRoute";
 import Candidates from "../pages/Candidates/candidates";
+import Employees from "../pages/Employees/employees";
 
 const AppRoutes = () => {
   return (
@@ -25,6 +26,7 @@ const AppRoutes = () => {
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/jobs" element={<ProtectedRoute><Jobs /></ProtectedRoute>} />
           <Route path='/candidates' element= {<ProtectedRoute><Candidates/></ProtectedRoute>}/>
+          <Route path='/employees' element= {<ProtectedRoute><Employees/></ProtectedRoute>}/>
         </Route>
       </Routes>
     </div>
