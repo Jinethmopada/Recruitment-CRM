@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Counter from "../models/Counter.js";
+import employeeCounter from './EmployeeCounter.js';
 
 const employeeSchema = new mongoose.Schema({
     employeeId:{
@@ -32,20 +32,21 @@ const employeeSchema = new mongoose.Schema({
     }
 })
 
-employeeSchema.pre("save", async function () {
-  if (!this.isNew) return ;
+employeeSchema.pre('save', async function () {
+    if (!this.isNew || this.employeeId) {
+        return;
+    }
 
-  try {
-    const counter = await Counter.findByIdAndUpdate(
-      { _id: "employeeId" },
-      { $inc: { sequenceValue: 1 } },
-      { new: true, upsert: true }
+    const counter = await employeeCounter.findOneAndUpdate(
+        { name: 'employeeId' },
+        { $inc: { seq: 1 } },
+        {
+            new: true,
+            upsert: true
+        }
     );
 
-    this.employeeId = `C-${counter.sequenceValue}`;
-  } catch (err) {
-   throw err;
-  }
+    this.employeeId = `E-${counter.seq}`;
 });
 
 const Employees =  mongoose.model('Employee', employeeSchema)

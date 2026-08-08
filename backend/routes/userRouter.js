@@ -16,7 +16,7 @@ router.delete('/jobs/:jobId',deleteJob);
 router.post('/candidate',postCandidate);
 router.get('/get-candidates',getCandidates);
 router.put('/candidate-status', updateStatus);
-router.post('/employee',postEmployee);
+router.post('/new-employee',postEmployee);
 router.get('/employees',getEmployees);
 router.get('/employee/:employeeId',getEmployeeById);
 router.delete('/employee/:employeeId',deleteEmployee);
