@@ -15,7 +15,7 @@ app.use(express.json());
 
 app.use('/api/users', userRouter);
 
-app.get('/', (req, res) => {
+app.get('/api/users', (req, res) => {
     res.json({
         success: true,
         message: 'Recruit CRM API is running'
