@@ -16,7 +16,7 @@ export const postEmployee = async(req,res) => {
 
 export const getEmployees = async(req,res) => {
     try{
-        const employees = await Employees.find();
+        const employees = await Employees.find().sort({createdDate:-1});
         res.status(200).json({
             success:true,
             employees,
