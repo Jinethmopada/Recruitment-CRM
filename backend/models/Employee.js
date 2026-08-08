@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import employeeCounter from './EmployeeCounter.js';
+import EmployeeCounter from './EmployeeCounter.js';
 
 const employeeSchema = new mongoose.Schema({
     employeeId:{
@@ -37,7 +37,7 @@ employeeSchema.pre('save', async function () {
         return;
     }
 
-    const counter = await employeeCounter.findOneAndUpdate(
+    const counter = await EmployeeCounter.findOneAndUpdate(
         { name: 'employeeId' },
         { $inc: { seq: 1 } },
         {
