@@ -5,16 +5,21 @@ import connectDB from './configs/db.js';
 import userRouter from './routes/userRouter.js';
 
 dotenv.config();
+
 connectDB();
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/users',userRouter);
+app.use('/api/users', userRouter);
 
-const PORT = process.env.PORT;
+app.get('/', (req, res) => {
+    res.json({
+        success: true,
+        message: 'Recruit CRM API is running'
+    });
+});
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-})
+export default app;
