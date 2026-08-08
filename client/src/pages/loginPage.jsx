@@ -34,8 +34,9 @@ const LoginPage = () => {
 
     if(response.success){
       console.log(response);
-    // Save token
+    // Save auth details
     localStorage.setItem("token", response.token);
+    localStorage.setItem("userName", response.user?.fullName || response.fullName || "User");
     toast.success(response.message);
 
     navigate("/dashboard");

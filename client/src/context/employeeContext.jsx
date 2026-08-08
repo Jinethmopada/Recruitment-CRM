@@ -62,7 +62,7 @@ export const EmployeeProvider = ({children}) => {
     const filteredList = uniqueEmployees.filter((employee) => {
         const query = search.toLowerCase();
         return(
-            employee.candidateId?.toLowerCase().includes(query) || employee.email?.toLowerCase().includes(query)
+            employee.employeeId?.toLowerCase().includes(query) || employee.email?.toLowerCase().includes(query)
         );
     })
 

@@ -10,7 +10,7 @@ import { TiMessages } from "react-icons/ti";
 import { IoSettingsOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import { FiLogOut } from "react-icons/fi";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const menuItems = [
   {
@@ -50,10 +50,6 @@ const menuItems = [
     icon: IoSettingsOutline,
   },
   {
-    title: "Profile",
-    icon: CgProfile,
-  },
-  {
     title: "Logout",
     icon: FiLogOut,
     path: "/login",
@@ -61,6 +57,14 @@ const menuItems = [
 ];
 
 const SideBar = ({ isOpen, setIsOpen }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userName");
+    navigate("/login");
+  };
+
   return (
     <>
       {/* Mobile Button */}
@@ -95,7 +99,8 @@ const SideBar = ({ isOpen, setIsOpen }) => {
         `}
       >
         {/* Logo */}
-        <div data-testid="sidebar-logo" className="flex items-center gap-3 px-5 py-5 border-b border-slate-700">
+        <NavLink to={'/dashboard'}>
+          <div data-testid="sidebar-logo" className="flex items-center gap-3 px-5 py-5 border-b border-slate-700">
           <div className="bg-indigo-600 p-2 rounded-lg">
             <BsPeopleFill size={20} />
           </div>
@@ -105,9 +110,10 @@ const SideBar = ({ isOpen, setIsOpen }) => {
               isOpen ? "opacity-100" : "opacity-0 hidden"
             }`}
           >
-            Recruit CRM
+           Recruit CRM
           </span>
         </div>
+        </NavLink>
 
         {/* Menu */}
         <nav className="flex flex-col justify-between h-[calc(100%-76px)]">
@@ -141,10 +147,11 @@ const SideBar = ({ isOpen, setIsOpen }) => {
           </div>
 
           {/* Logout */}
-          <NavLink
-            to="/login"
+          <button
+            type="button"
+            onClick={handleLogout}
             data-testid="sidebar-link-logout"
-            className="flex items-center px-6 py-4 border-t border-slate-700 hover:bg-red-600 transition-colors"
+            className="flex w-full items-center px-6 py-4 border-t border-slate-700 hover:bg-red-600 transition-colors"
           >
             <FiLogOut size={22} />
 
@@ -155,7 +162,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
             >
               Logout
             </span>
-          </NavLink>
+          </button>
         </nav>
       </aside>
     </>

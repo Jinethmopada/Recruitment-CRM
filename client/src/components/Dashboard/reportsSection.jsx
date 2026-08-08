@@ -191,21 +191,6 @@ const Charts = () => {
           </div>
         </div>
 
-        {/* 6. Scatter Chart
-        <div className="rounded-xl bg-white p-4 shadow">
-          <h3 className="mb-4 font-semibold">Candidate Score Distribution</h3>
-          <div className="h-72">
-            <ResponsiveContainer width="100%" height="100%">
-              <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
-                <CartesianGrid />
-                <XAxis type="number" dataKey="x" name="Score" unit="%" />
-                <YAxis type="number" dataKey="y" name="Count" />
-                <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-                <Scatter data={candidateScoreData} fill="#f59e0b" />
-              </ScatterChart>
-            </ResponsiveContainer>
-          </div>
-        </div> */}
       </div>
     </div>
   );

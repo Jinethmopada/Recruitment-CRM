@@ -46,7 +46,7 @@ export const updateCandidateStatus = async(data) => {
 }
 
 export const postEmployee = async(data) => {
-    const response = await api.post('/employee',data);
+    const response = await api.post('/new-employee',data);
     return response.data
 }
 
