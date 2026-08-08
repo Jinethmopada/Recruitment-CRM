@@ -23,12 +23,14 @@ import {
 
 import {useJobs} from '../../context/jobContext';
 import {useCandidates} from "../../context/candidateContext";
+import { useEmployees } from "../../context/employeeContext";
 
 const COLORS = ["#4f46e5", "#8b5cf6", "#10b981", "#f59e0b", "#ec4899", "#06b6d4"];
 
 const Charts = () => {
   const { jobs, openJobsCount } = useJobs();
   const { candidatesList, interviewCount, hireCount, rejectedCount, screeningCount } = useCandidates();
+  const { employeeCount } = useEmployees();
 
   // Jobs by location
   const jobsByLocation = Object.entries(
@@ -72,12 +74,10 @@ const Charts = () => {
     { x: 30, y: 14 }
   ];
 
-  // Department vs candidate count example
-  const departmentPerformance = [
-    { subject: "Engineering", A: 80, B: 70 },
-    { subject: "Sales", A: 65, B: 85 },
-    { subject: "HR", A: 55, B: 90 },
-    { subject: "Design", A: 75, B: 60 }
+  // Live system distribution
+  const systemCountData = [
+    { name: "Employees", count: employeeCount || 0 },
+    { name: "Candidates", count: candidatesList.length || 0 }
   ];
 
   return (
@@ -175,18 +175,18 @@ const Charts = () => {
           </div>
         </div>
 
-        {/* 5. Radar Chart */}
-        <div data-testid="department-performance-chart" className="rounded-xl bg-white p-4 shadow">
-          <h3 className="mb-4 font-semibold">Department Performance</h3>
+        {/* 5. Employee vs Candidate System Count Chart */}
+        <div data-testid="system-count-chart" className="rounded-xl bg-white p-4 shadow">
+          <h3 className="mb-4 font-semibold">Employees vs Candidates in System</h3>
           <div className="h-72">
             <ResponsiveContainer width="100%" height="100%">
-              <RadarChart data={departmentPerformance}>
-                <PolarGrid />
-                <PolarAngleAxis dataKey="subject" />
+              <BarChart data={systemCountData} barCategoryGap="42%">
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis allowDecimals={false} />
                 <Tooltip />
-                <Radar name="Current" dataKey="A" stroke="#4f46e5" fill="#4f46e5" fillOpacity={0.5} />
-                <Radar name="Target" dataKey="B" stroke="#10b981" fill="#10b981" fillOpacity={0.3} />
-              </RadarChart>
+                <Bar dataKey="count" name="Total" fill="#4f46e5" radius={[6, 6, 0, 0]} barSize={24} />
+              </BarChart>
             </ResponsiveContainer>
           </div>
         </div>

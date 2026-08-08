@@ -1,9 +1,12 @@
 import { useEmployees } from '../context/employeeContext.jsx';
 import CountComponent from '../components/Dashboard/countComponent.jsx';
 import { GrInProgress } from 'react-icons/gr';
+import { useState } from 'react';
+import EmployeeModal from './employeeModal.jsx';
 
 const EmployeeSearchLayout = () => {
     const {search, handleChange,employeesList,employeeCount} = useEmployees();
+    const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div data-testid="employee-search-layout" className="mb-6">
@@ -27,6 +30,9 @@ const EmployeeSearchLayout = () => {
               accent="indigo"
             />
           </div>
+
+          <button data-testid="create-employee-button" onClick={() => setIsOpen(true)} className="border-2 rounded-lg bg-indigo-600 text-white text-center p-3 m-3">+ Create Employee</button>
+        {isOpen && <EmployeeModal onClose={() => setIsOpen(false)} />}
         </div>
       </div>
     </div>
