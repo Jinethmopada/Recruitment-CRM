@@ -16,4 +16,4 @@ const counterSchema = new mongoose.Schema({
 
 const EmployeeCounter = mongoose.model('employeeCounter', counterSchema);
 
-export default EmployeeCounter;
+export default EmployeeCounter
